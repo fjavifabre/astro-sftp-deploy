@@ -1,5 +1,5 @@
 name: "Astro FTP"
-description: "A composite action that prepares your Astro site to be deployed to any FTP server."
+description: "A composite action that prepares your Astro site to be deployed to any SFTP server."
 branding:
   icon: "box"
   color: "orange"
@@ -105,14 +105,15 @@ runs:
         cd ${{ inputs.path }}
         $PACKAGE_MANAGER run build
 
-    - name: Upload to FTP Server
-      uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+    - name: SFTP Deploy
+      uses: wlixcc/SFTP-Deploy-Action@v1.2.4
+            
       with:
         server: ${{ inputs.server }}
         port: ${{ inputs.port }}
         protocol: ${{ inputs.protocol }}
         username: ${{ inputs.username }}
         password: ${{ inputs.password }}
-        server-dir: ${{ inputs.directory }}
+        remote_path: ${{ inputs.directory }}
         dry-run: ${{ inputs.dry-run }}
-        local-dir: ./dist/
+        local-path: ./dist/
